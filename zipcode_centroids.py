@@ -10,7 +10,7 @@ headerNames = ['country_code','postal_code','place_name','admin_name1','admin_co
 geonames = pd.read_csv('geonames_postalcode/US/US.txt',sep='\t',names=headerNames, usecols=['postal_code','place_name','admin_name2','admin_name1'])
 
 geonames['postal_code']=geonames['postal_code'].astype('str')
-census['postal_code']=df['postal_code'].astype('str')
+census['postal_code']=census['postal_code'].astype('str')
 
 spatial_df  = geonames.merge(census, on='postal_code', how='left')
 gdf = gpd.GeoDataFrame(spatial_df)
