@@ -1,5 +1,5 @@
 # us-zipcode
-Use 2020 US Census data for Zip Codes and Geonames to get the centroid of each zip code in the US and use the Population of the county for color. Santa Clara County, CA and King County, WA are used in this script as examples.
+Use 2020 US Census data for Zip Codes and Geonames to get the centroid of each zip code in the US and use the Population of the county for color. Along with County and State, City and State can be visualized. Santa Clara County, CA and King County, WA are used in this script as County examples for the ouput figure. Los Angeles, CA and Seattle, WA are City figure examples.
 
 Datasets:
 
