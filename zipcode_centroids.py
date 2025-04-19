@@ -59,7 +59,7 @@ def draw_county_figure(county, state):
     
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
-    file_name = f'{county}_{state}'.replace(' ','_').lower()
+    file_name = f'{county}_county_{state}'.replace(' ','_').lower()
     plt.savefig(file_name+'.png', bbox_inches='tight')
 
 def draw_city_figure(city, state):
