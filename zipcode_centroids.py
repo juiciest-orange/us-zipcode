@@ -36,7 +36,7 @@ spatial_df = reduce(lambda left, right: pd.merge(left, right, on='postal_code', 
 gdf = gpd.GeoDataFrame(spatial_df)
 centroids = gdf.to_crs('+proj=cea').centroid.to_crs(gdf.crs) # Project the shapes to a flat surface to get centroid, then convert back to original projection system
 gdf['centroid'] = centroids
-gdf.dropna(inplace=True)
+# gdf.dropna(inplace=True) # Don't throw out NAs
 
 del(dfs)
 del(spatial_df)
@@ -53,7 +53,8 @@ def draw_county_figure(county, state):
     gdf[(gdf['admin_name2']==f'{county}')&(gdf['admin_name1']==f'{state}')].plot(ax=ax, column=' !!Total', edgecolor='black', 
                                                                                  cmap='viridis', legend=True,
                                                                                  legend_kwds={"label": "Population", 
-                                                                                              "orientation": "horizontal"})
+                                                                                              "orientation": "horizontal"},
+                                                                                missing_kwds={'color': 'lightgrey'})
     gdf[(gdf['admin_name2']==f'{county}')&(gdf['admin_name1']==f'{state}')]['centroid'].plot(ax=ax, marker='o', color='red', markersize=1)
     
     plt.xlabel("Longitude")
@@ -73,7 +74,8 @@ def draw_city_figure(city, state):
     gdf[(gdf['place_name']==f'{city}')&(gdf['admin_name1']==f'{state}')].plot(ax=ax, column=' !!Total', edgecolor='black', 
                                                                                  cmap='viridis', legend=True,
                                                                                  legend_kwds={"label": "Population", 
-                                                                                              "orientation": "horizontal"})
+                                                                                              "orientation": "horizontal"},
+                                                                                missing_kwds={'color': 'lightgrey'},)
     gdf[(gdf['place_name']==f'{city}')&(gdf['admin_name1']==f'{state}')]['centroid'].plot(ax=ax, marker='o', color='red', markersize=1)
 
     plt.xlabel("Longitude")
@@ -81,5 +83,5 @@ def draw_city_figure(city, state):
     file_name = f'{city}_{state}'.replace(' ','_').lower()
     plt.savefig(file_name+'.png', bbox_inches='tight')
 
-# draw_county_figure(county='Santa Clara', state='California')
-draw_city_figure(city='Boston',state='Massachusetts')
+# draw_county_figure('King', 'Washington')
+draw_city_figure('Seattle', 'Washington')
